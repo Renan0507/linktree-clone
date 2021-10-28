@@ -42,6 +42,7 @@
         font-size: 18px;
         font-weight: bold;
         margin-bottom: 20px;
+        color: #FFF;
     }
     .linkArea a.linksquare {
         border-radius: 0px;

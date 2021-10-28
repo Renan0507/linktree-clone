@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 use App\Models\User;
 use App\Models\Page;
@@ -148,6 +149,59 @@ class AdminController extends Controller
         }
         
         return [];
+    }
+
+    public function newLink($slug) {
+        $user = Auth::user();
+        $page = Page::where('id_user', $user->id)
+            ->where('slug', $slug)
+            ->first();
+
+        if($page) {
+            return view('admin/page_editlink', [
+                'menu' => 'links',
+                'page' => $page,
+            ]);
+        } else {
+            return redirect ('/admin');
+        }
+    }
+
+    public function newLinkAction($slug, Request $request) {
+        $user = Auth::user();
+        $page = Page::where('id_user', $user->id)
+            ->where('slug', $slug)
+            ->first();
+        
+        if($page) {
+
+            $fields = $request->validate([
+                'status' => ['required', 'boolean'],
+                'title' => ['required', 'min:2'],
+                'href' => ['required', 'url'],
+                'op_bg_color' => ['required'],
+                'op_text_color' => ['required'],
+                'op_border_type' => ['required', Rule::in(['square', 'rounded'])],
+            ]);
+
+            $totalLinks = Link::where('id_page', $page->id)->count();
+
+            $newLink = new Link();
+            $newLink->id_page = $page->id;
+            $newLink->status = $fields['status'];
+            $newLink->order = $totalLinks;
+            $newLink->title = $fields['title'];
+            $newLink->href = $fields['href'];
+            $newLink->op_bg_color = $fields['op_bg_color'];
+            $newLink->op_text_color = $fields['op_text_color'];
+            $newLink->op_border_type = $fields['op_border_type'];
+            $newLink->save();
+
+            return redirect('/admin/'.$page->slug.'/links');
+
+        } else {
+            return redirect ('/admin');
+        }
     }
 
     public function pageDesign($slug) {
