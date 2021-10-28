@@ -28,6 +28,10 @@ Route::prefix('/admin')->group(function() {
     Route::get('/{slug}/newlink', [AdminController::class, 'newLink']);
     Route::post('/{slug}/newlink', [AdminController::class, 'newLinkAction']);
 
+    Route::get('/{slug}/editlink/{linkid}', [AdminController::class, 'editlink']);
+    Route::post('/{slug}/editlink/{linkid}', [AdminController::class, 'editlinkAction']);
+
+    Route::get('/{slug}/dellink/{linkid}', [AdminController::class, 'delLink']);
 });
 
 Route::get('/{slug}', [PageController::class, 'index']);

@@ -16,7 +16,7 @@
                 </div>
                 <div class="link--item-buttons">
                     <a href="{{url('/admin/'.$page->slug.'/editlink/'.$link->id)}}">Editar</a>
-                    <a href="{{url('/admin/'.$page->slug.'/delllink/'.$link->id)}}">Excluir</a>
+                    <a href="{{url('/admin/'.$page->slug.'/dellink/'.$link->id)}}">Excluir</a>
                 </div>
             </li>
         @endforeach
