@@ -1,4 +1,4 @@
-<h1 align="center">:house_with_garden: Linktree Clone :house_with_garden:</h1>
+<h1 align="center">:link: Linktree Clone :link:</h1>
 
 <p align="center">O Linktree Clone se trata de um sistema feito em Laravel que tem por objetivo copiar o sistema Linktree exclusivamente para prática do Laravel.</p>
 
